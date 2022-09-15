@@ -1,6 +1,10 @@
 # CharaChorder-software-alternative
  a software version of the CharaChorder for any keyboard
 
+# Chord notes
+chords must use perfect spelling only pressing the keys in the word.
+chords can be typed in quick succession.
+
 # Usage
 1. isntalling pynput with pip
 2. start the script

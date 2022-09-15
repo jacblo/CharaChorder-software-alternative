@@ -51,13 +51,13 @@ def replace_word(original_len, word):
     utils.write(word+(" " if len(word) != 0 else ""))
 
 def on_chord(chord, last_space):
-    chord = [key for key in chord if key != "backspace"]
+    chord = [key for key in chord if key not in ["backspace", "ctrl_l", "ctrl_r"]]
     if not all(ch in letters for ch in chord):
         return True
     
     print(f"{''.join(chord)} to")
     word = find_best(chord)
-    replace_word(len(chord), word)
+    if word != "".join(chord): replace_word(len(chord), word)
     print(word+"\n")
     return True
 
