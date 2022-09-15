@@ -25,12 +25,12 @@ def on_press(key):
 min_chord_length = 2
 
 end_key = keyboard.Key.esc
-end_key_modifier = "shift"
+modifier_key = "shift"
 
 def on_release(key):
     global keys_pressed, keys_down, last_space, soft_end
     if key == end_key:
-        if end_key_modifier in keys_pressed:
+        if modifier_key in keys_pressed:
             print("stopped")
             soft_end = False
         return False  # stop listener
@@ -63,6 +63,8 @@ def write(text):
     controller.type(text)
 
 def start():
+    global keys_pressed
+    keys_pressed = []
     listener = keyboard.Listener(on_press=on_press, on_release=on_release)
     listener.start()  # start to listen on a separate thread
     listener.join()

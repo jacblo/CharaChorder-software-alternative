@@ -1,8 +1,10 @@
 import utils
 import json
 import os
+import sys
 
-lang = 'en'
+lang = 'en' if len(sys.argv) == 1 else sys.argv[1]
+
 if not os.path.exists(f"languages/{lang}.json"):
     print("language pack not found")
     os._exit(1)
@@ -15,6 +17,8 @@ dictionary = data["dictionary"]
 print("data loaded")
 
 def similarity(word, chord, pos = 0):
+    global letters
+    word = "".join(x for x in word if x in letters) # remove stuff like ' in don't from the word
     if word == "".join(chord):
         print("written correctly")
         return float("inf")
@@ -45,18 +49,20 @@ def find_best(chord):
 def replace_word(original_len, word):
     utils.backspace(original_len+1)
     utils.write(word+(" " if len(word) != 0 else ""))
-    
+
 def on_chord(chord, last_space):
+    chord = [key for key in chord if key != "backspace"]
     if not all(ch in letters for ch in chord):
         return True
     
-    print(f"{''.join(chord)} V")
+    print(f"{''.join(chord)} to")
     word = find_best(chord)
     replace_word(len(chord), word)
-    print(word)
+    print(word+"\n")
     return True
 
-utils.on_chord = on_chord
-while utils.soft_end:
-    print("started")
-    utils.start()
+if __name__ == '__main__':
+    utils.on_chord = on_chord
+    while utils.soft_end:
+        print("started")
+        utils.start()
