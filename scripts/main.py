@@ -2,6 +2,7 @@ import utils
 import json
 import os
 import sys
+import time
 
 lang = 'en' if len(sys.argv) == 1 else sys.argv[1]
 
@@ -56,9 +57,11 @@ def on_chord(chord, last_space):
         return True
     
     print(f"{''.join(chord)} to")
+    a = time.time()
     word = find_best(chord)
     if word != "".join(chord): replace_word(len(chord), word)
     print(word+"\n")
+    print(time.time()-a)
     return True
 
 if __name__ == '__main__':
