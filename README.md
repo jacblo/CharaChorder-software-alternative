@@ -14,6 +14,6 @@
 tip - if it stops working for some reason, press escape to restart.
 
 
-
+# Notes
 This is a WIP do not expect to work out of the box.
 I am still working on this
