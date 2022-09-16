@@ -41,28 +41,29 @@ def on_release(key):
     
     keys_down -= 1
     
-    if key == keyboard.Key.space:
-        if "space" in keys_pressed:
+    if key == keyboard.Key.space: # check for chord
+        if "space" in keys_pressed: # not a character we care about
             keys_pressed.remove("space")
-        if len(keys_pressed) >= min_chord_length:
-            result = on_chord(keys_pressed, last_space)
-            keys_pressed = []
+            
+        if len(keys_pressed) >= min_chord_length: # chord is long enough
+            result = on_chord(keys_pressed, last_space) # call the chord function
+            keys_pressed = [] # reset the chord
             return result
     
-    if len(keys_pressed) < min_chord_length:
+    if len(keys_pressed) < min_chord_length: # not a chord
         keys_pressed = []
     return True
 
-
 def backspace(length):
+    """backspace {length} number of characters"""
     for i in range(length):
         controller.press(keyboard.Key.backspace)
         controller.release(keyboard.Key.backspace)
 
-def write(text):
+def write(text): # wrapper so backend can change
     controller.type(text)
 
-def start():
+def start(): # function called to reset/start the chord listener
     global keys_pressed
     keys_pressed = []
     listener = keyboard.Listener(on_press=on_press, on_release=on_release)
@@ -70,4 +71,4 @@ def start():
     listener.join()
 
 if __name__ == '__main__':
-    start()  # remove if main thread is polling self.keys
+    start()
