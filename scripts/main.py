@@ -60,7 +60,7 @@ def replace_word(original_len, word):
 
 # called when a chord is typed
 def on_chord(chord, last_space):
-    chord = [key for key in chord if key not in ["backspace", "ctrl_l", "ctrl_r"]]
+    chord = [key for key in chord if key not in ["backspace", "ctrl", "ctrl_l", "ctrl_r", "alt_l"]]
     if not all(ch in letters for ch in chord):
         return True
     
